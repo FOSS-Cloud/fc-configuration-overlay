@@ -1,0 +1,17 @@
+<pool type='dir'>
+  <name>c92851ab-ec8e-4eba-b60d-96cf3f72fd02</name>
+  <uuid>c92851ab-ec8e-4eba-b60d-96cf3f72fd02</uuid>
+  <capacity>0</capacity>
+  <allocation>0</allocation>
+  <available>0</available>
+  <source>
+  </source>
+  <target>
+    <path>/var/virtualization/vm-dynamic/c92851ab-ec8e-4eba-b60d-96cf3f72fd02</path>
+    <permissions>
+      <mode>0700</mode>
+      <owner>-1</owner>
+      <group>-1</group>
+    </permissions>
+  </target>
+</pool>
