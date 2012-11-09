@@ -1,0 +1,72 @@
+<?php
+
+/*********************************************/
+/* Appearance                                */
+/*********************************************/
+
+/* If you want to choose the appearance of the tree, specify a class name which
+   inherits from the Tree class. */
+$config->custom->appearance['tree'] = 'AJAXTree';
+//$config->custom->appearance['tree'] = 'HTMLTree';
+
+/* Just show your custom templates. */
+$config->custom->appearance['custom_templates_only'] = true;
+
+/* Disable the default template. */
+$config->custom->appearance['disable_default_template'] = false;
+
+/* Hide the warnings for invalid objectClasses/attributes in templates. */
+$config->custom->appearance['hide_template_warning'] = true;
+
+
+/*********************************************/
+/* User-friendly attribute translation       */
+/*********************************************/
+
+/* Use this array to map attribute names to user friendly names. For example, if
+   you don't want to see "facsimileTelephoneNumber" but rather "Fax". */
+// $config->custom->appearance['friendly_attrs'] = array();
+$config->custom->appearance['friendly_attrs'] = array(
+        'facsimileTelephoneNumber' => 'Fax',
+        'gid'                      => 'Group',
+        'mail'                     => 'Email',
+        'telephoneNumber'          => 'Telephone',
+        'uid'                      => 'User Name',
+        'userPassword'             => 'Password'
+);
+
+
+/*********************************************/
+/* Define your LDAP servers in this section  */
+/*********************************************/
+
+$servers = new Datastore();
+
+/* A convenient name that will appear in the tree viewer and throughout
+   phpLDAPadmin to identify this LDAP server to users. */
+
+// OpenLDAP server Virtual IP (VIP)
+$servers->newServer('ldap_pla');
+$servers->setValue('server','name','LDAP Master (VIP)');
+$servers->SetValue('server','host','<FOSS-CLOUD-LDAP-VIP>');
+$servers->SetValue('server','port','<FOSS-CLOUD-LDAP-PORT>');
+$servers->SetValue('server','base',array('dc=foss-cloud,dc=org'));
+$servers->setValue('login','bind_id','cn=Manager,dc=foss-cloud,dc=org');
+
+// OpenLDAP server Real IP number one (RIP1)
+$servers->newServer('ldap_pla');
+$servers->setValue('server','name','LDAP Master (RIP1)');
+$servers->SetValue('server','host','<FOSS-CLOUD-LDAP-RIP1>');
+$servers->SetValue('server','port','<FOSS-CLOUD-LDAP-PORT>');
+$servers->SetValue('server','base',array('dc=foss-cloud,dc=org'));
+$servers->setValue('login','bind_id','cn=Manager,dc=foss-cloud,dc=org');
+
+// OpenLDAP server Real IP number two (RIP2)
+//$servers->newServer('ldap_pla');
+//$servers->setValue('server','name','LDAP Master (RIP2)');
+//$servers->SetValue('server','host','ldaps://<FOSS-CLOUD-LDAP-RIP2>');
+//$servers->SetValue('server','port','<FOSS-CLOUD-LDAP-PORT>');
+//$servers->SetValue('server','base',array('dc=foss-cloud,dc=org'));
+//$servers->setValue('login','bind_id','cn=Manager,dc=foss-cloud,dc=org');
+
+?>
