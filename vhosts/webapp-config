@@ -150,7 +150,7 @@ vhost_default_gid="root"
 #   please do not raise bugs about packages that do not work when
 #   symlinked
 #
-# vhost_link_type="soft"
+vhost_link_type="soft"
 
 # what are the names of your document directories?
 #
