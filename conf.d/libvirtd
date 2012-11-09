@@ -4,7 +4,7 @@
 # You may want to add '--listen' to have libvirtd listen for tcp/ip connections
 # if you want to use libvirt for remote control
 # Please consult 'libvirtd --help' for more options
-#LIBVIRTD_OPTS="--listen"
+LIBVIRTD_OPTS="--listen"
 
 # LIBVIRTD_KVM_SHUTDOWN
 # Valid options:
