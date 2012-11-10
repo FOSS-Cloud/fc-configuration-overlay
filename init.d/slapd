@@ -23,6 +23,7 @@ start() {
 	[ -n "$KRB5_KTNAME" ] && export KRB5_KTNAME
 	eval start-stop-daemon --start --pidfile /var/run/openldap/${SVCNAME}.pid --exec /usr/lib64/openldap/slapd -- -u ldap -g ldap "${OPTS}"
 	eend $?
+	sleep 3 # give it some time to get ready
 }
 
 stop() {
