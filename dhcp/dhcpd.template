@@ -28,9 +28,9 @@
 
 
 ldap-server "<FOSS-CLOUD-LDAP-SERVER>";
-ldap-port 389;
+ldap-port <FOSS-CLOUD-LDAP-PORT>;
 ldap-username "cn=dhcp,ou=services,ou=administration,dc=foss-cloud,dc=org";
-ldap-password "rJRp6A97GAtKAZXg";
+ldap-password "<FOSS-CLOUD-DHCP-PASSWORD>";
 ldap-base-dn "ou=dhcp,ou=networks,ou=virtualization,ou=services,dc=foss-cloud,dc=org";
 ldap-dhcp-server-cn "dhcp-01";
 ldap-method dynamic;
