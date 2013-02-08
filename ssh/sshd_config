@@ -59,7 +59,9 @@
 # Don't read the user's ~/.rhosts and ~/.shosts files
 #IgnoreRhosts yes
 
-# To disable tunneled clear text passwords, change to no here!
+# We do not want tunneled cleartext passwords but are using the combination of
+# PAM + ChallengeResponseAuthentication to get password authentication.
+# See the description for UsePAM in `man sshd_config` or below.
 PasswordAuthentication no
 #PermitEmptyPasswords no
 
