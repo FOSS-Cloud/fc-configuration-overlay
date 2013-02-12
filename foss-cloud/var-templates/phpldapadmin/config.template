@@ -62,11 +62,11 @@ $servers->SetValue('server','base',array('dc=foss-cloud,dc=org'));
 $servers->setValue('login','bind_id','cn=Manager,dc=foss-cloud,dc=org');
 
 // OpenLDAP server Real IP number two (RIP2)
-//$servers->newServer('ldap_pla');
-//$servers->setValue('server','name','LDAP Master (RIP2)');
-//$servers->SetValue('server','host','ldaps://<FOSS-CLOUD-LDAP-RIP2>');
-//$servers->SetValue('server','port','<FOSS-CLOUD-LDAP-PORT>');
-//$servers->SetValue('server','base',array('dc=foss-cloud,dc=org'));
-//$servers->setValue('login','bind_id','cn=Manager,dc=foss-cloud,dc=org');
+$servers->newServer('ldap_pla');
+$servers->setValue('server','name','LDAP Master (RIP2)');
+$servers->SetValue('server','host','<FOSS-CLOUD-LDAP-RIP2>');
+$servers->SetValue('server','port','<FOSS-CLOUD-LDAP-PORT>');
+$servers->SetValue('server','base',array('dc=foss-cloud,dc=org'));
+$servers->setValue('login','bind_id','cn=Manager,dc=foss-cloud,dc=org');
 
 ?>
