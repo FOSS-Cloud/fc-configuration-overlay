@@ -1,0 +1,3 @@
+/var/log/rc.log {
+	missingok
+}

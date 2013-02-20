@@ -1,0 +1,10 @@
+# No longer necessary as dcron now logs via syslog
+#
+#/var/log/crond.log {
+#   sharedscripts
+#   copytruncate
+#   missingok
+#   postrotate
+#	   kill -HUP `cat /var/run/crond.pid`
+#   endscript
+#}

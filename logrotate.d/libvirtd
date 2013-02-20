@@ -1,0 +1,11 @@
+# No longer necessary as libvirtd logs via syslog
+#
+#/var/log/libvirt/libvirtd.log {
+#        weekly
+#        missingok
+#        rotate 4
+#        compress
+#        delaycompress
+#        copytruncate
+#        minsize 100k
+#}
