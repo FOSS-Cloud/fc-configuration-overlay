@@ -1,0 +1,3 @@
+[submodule "syslog-ng"]
+	path = syslog-ng
+	url = https://github.com/stepping-stone/syslog-ng.git
