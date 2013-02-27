@@ -26,7 +26,7 @@ LIBVIRTD_OPTS="--listen"
 # * none - No attempts will be made to stop any VMs. If you are restarting your
 # 		machine the qemu-kvm process will be simply killed, which may result
 # 		in your VMs having disk corruption.
-LIBVIRTD_KVM_SHUTDOWN="managedsave"
+LIBVIRTD_KVM_SHUTDOWN="shutdown"
 
 # LIBVIRTD_KVM_SHUTDOWN_MAXWAIT
 # Timeout in seconds until stopping libvirtd and "pulling the plug" on the
