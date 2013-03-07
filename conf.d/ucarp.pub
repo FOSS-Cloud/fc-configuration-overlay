@@ -27,4 +27,4 @@ UCARP_UPSCRIPT=/usr/libexec/foss-cloud/ucarp-vip-up-pub.sh
 UCARP_DOWNSCRIPT=/usr/libexec/foss-cloud/ucarp-vip-down-pub.sh
 
 # Additional ucarp options to pass
-UCARP_OPTS="--shutdown --advskew <FOSS-CLOUD-UCARP-ADVSKEW>"
+UCARP_OPTS="--shutdown <FOSS-CLOUD-UCARP-OPTS>"
