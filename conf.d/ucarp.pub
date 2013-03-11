@@ -28,3 +28,6 @@ UCARP_DOWNSCRIPT=/usr/libexec/foss-cloud/ucarp-vip-down-pub.sh
 
 # Additional ucarp options to pass
 UCARP_OPTS="--shutdown <FOSS-CLOUD-UCARP-OPTS>"
+
+# Set nice (=-5) and ionice (=real-time) priorities to avoid failover on busy systems
+start_stop_daemon_args="-N -5 -I 1"
