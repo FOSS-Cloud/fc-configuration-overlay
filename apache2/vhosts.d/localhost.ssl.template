@@ -36,8 +36,8 @@ Listen <FOSS-CLOUD-APACHE-VIP>:<FOSS-CLOUD-APACHE-PORT>
 
     SSLEngine on
     SSLCipherSuite HIGH:MEDIUM
-    SSLCertificateFile /etc/ssl/apache2/foss-cloud.example.com.cert.pem
-    SSLCertificateKeyFile /etc/ssl/apache2/foss-cloud.example.com.key.pem
+    SSLCertificateFile /etc/ssl/apache2/<FOSS-CLOUD-APACHE-CERTIFICATE-FILE>
+    SSLCertificateKeyFile /etc/ssl/apache2/<FOSS-CLOUD-APACHE-CERTIFICATE-KEY-FILE>
     SSLCACertificateFile /etc/ssl/certs/FOSS-Cloud_CA.cert.pem
 
     <Files ~ "\.(cgi|shtml|phtml|php?)$">
@@ -50,6 +50,10 @@ Listen <FOSS-CLOUD-APACHE-VIP>:<FOSS-CLOUD-APACHE-PORT>
         AllowOverride AuthConfig FileInfo Indexes Limit
         Order Allow,Deny
         Allow from all
+    </Directory>
+    
+    <Directory "/var/www/localhost/htdocs/ca">
+        Options -SymlinksIfOwnerMatch +Indexes
     </Directory>
 
     <Location />

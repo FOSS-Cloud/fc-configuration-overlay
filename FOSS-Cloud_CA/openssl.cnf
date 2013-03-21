@@ -1,4 +1,4 @@
-# Copyright (C) 2011 FOSS-Group
+# Copyright (C) 2013 FOSS-Group
 #                    Germany
 #                    http://www.foss-group.de
 #                    support@foss-group.de
@@ -22,8 +22,6 @@
 # express or implied.
 # See the Licence for the specific language governing
 # permissions and limitations under the Licence.
-#
-# $Id: openssl.cnf 182 2011-07-22 12:58:56Z christian.affolter@stepping-stone.ch $
 #
 #
 
