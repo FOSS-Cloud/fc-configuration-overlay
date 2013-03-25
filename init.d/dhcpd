@@ -10,6 +10,7 @@ extra_commands="configtest"
 depend() {
 	need net
 	use logger dns slapd
+	after ucarp
 }
 
 get_var() {
