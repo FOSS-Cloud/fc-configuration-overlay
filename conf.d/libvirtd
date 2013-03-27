@@ -5,6 +5,7 @@
 # is what rc_need="net" provides. However if you only use specific networks
 # for libvirtd, you may override this. Or if you only use libvirtd locally.
 rc_need="net"
+rc_use="netmount"
 
 # LIBVIRTD_OPTS
 # You may want to add '--listen' to have libvirtd listen for tcp/ip connections
