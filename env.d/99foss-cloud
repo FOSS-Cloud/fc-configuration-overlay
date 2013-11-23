@@ -1,0 +1,1 @@
+CONFIG_PROTECT_MASK="/etc/os-release /etc/foss-cloud_version"

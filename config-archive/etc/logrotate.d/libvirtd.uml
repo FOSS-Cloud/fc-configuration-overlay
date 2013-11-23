@@ -1,0 +1,6 @@
+/var/log/libvirt/uml/*.log {
+        missingok
+        compress
+        delaycompress
+        copytruncate
+}

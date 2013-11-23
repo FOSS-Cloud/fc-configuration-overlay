@@ -1,0 +1,71 @@
+# Copyright (C) 2013 FOSS-Group
+#                    Germany
+#                    http://www.foss-group.de
+#                    support@foss-group.de
+#
+# Authors:
+#  Michael Eichenberger <michael.eichenberger@stepping-stone.ch>
+#  
+# Licensed under the EUPL, Version 1.1 or – as soon they
+# will be approved by the European Commission - subsequent
+# versions of the EUPL (the "Licence");
+# You may not use this work except in compliance with the
+# Licence.
+# You may obtain a copy of the Licence at:
+#
+# http://www.osor.eu/eupl
+#
+# Unless required by applicable law or agreed to in
+# writing, software distributed under the Licence is
+# distributed on an "AS IS" basis,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+# express or implied.
+# See the Licence for the specific language governing
+# permissions and limitations under the Licence.
+#
+# 
+#
+#
+#####################################################################################################################
+# /etc/openldap/data/05_people.ldif
+#####################################################################################################################
+# Description:
+#  Initialises the organisational data like resellers, customers and people.
+#####################################################################################################################
+
+#####################################################################################################################
+# people
+#####################################################################################################################
+# slappasswd -s 'admin'
+dn: uid=4000002,ou=people,dc=foss-cloud,dc=org
+objectclass: top
+objectclass: sstPerson
+uid: 4000002
+sstGender: <FOSS-CLOUD-PEOPLE-GENDER>
+givenName: <FOSS-CLOUD-PEOPLE-GIVENNAME>
+surname: <FOSS-CLOUD-PEOPLE-SURNAME>
+preferredLanguage: <FOSS-CLOUD-PEOPLE-LANGUAGE>
+userPassword: <FOSS-CLOUD-PEOPLE-PASSWORD>
+mail: <FOSS-CLOUD-PEOPLE-MAIL>
+cn: admin
+sstTimeZoneOffset: <FOSS-CLOUD-PEOPLE-TIMEZONE>
+sstBelongsToResellerUID: 4000000
+sstBelongsToCustomerUID: 4000001
+
+dn: sstRole=User,uid=4000002,ou=people,dc=foss-cloud,dc=org
+objectclass: top
+objectclass: sstRoles
+sstRole: User
+sstProduct: 0
+
+dn: sstRole=Admin Virtualization,uid=4000002,ou=people,dc=foss-cloud,dc=org
+objectclass: top
+objectclass: sstRoles
+sstRole: Admin Virtualization
+sstProduct: 0
+
+dn: sstRole=Monitoring Administrator,uid=4000002,ou=people,dc=foss-cloud,dc=org
+objectclass: top
+objectclass: sstRoles
+sstRole: Monitoring Administrator
+sstProduct: 0
