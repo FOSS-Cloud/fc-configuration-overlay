@@ -1,0 +1,2076 @@
+################################################################################
+# LDAP Schema for stepping stone                             stepping stone GmbH
+# ---------------------------------                             Neufeldstrasse 9
+#                                                                   CH-3012 Bern
+#                                                                    Switzerland
+# 
+################################################################################
+# 1.3.6.1.4.1.22621        stepping stone GmbH OID from IANA
+################################################################################
+# 1.3.6.1.4.1.22621.0 	   reserved for SNMP
+# 1.3.6.1.4.1.22621.0.1    sstSNMPqueries
+################################################################################
+# 1.3.6.1.4.1.22621.1 	   reserved for LDAP
+################################################################################
+# 1.3.6.1.4.1.22621.1.1    AttributeTypes
+# 1.3.6.1.4.1.22621.1.1.1  Next free OID
+################################################################################
+# 1.3.6.1.4.1.22621.1.2    ObjectClasses
+# 1.3.6.1.4.1.22621.1.2.1  Next free OID
+################################################################################
+objectidentifier sstAttributeType 1.3.6.1.4.1.22621.1.1
+objectidentifier sstObjectClass   1.3.6.1.4.1.22621.1.2
+
+attributetype ( sstAttributeType:1 
+    NAME 'sstCurrency'
+    DESC 'Three-letter currency code according to ISO 4217.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{3}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:2 
+    NAME 'sstPaymentMethod'
+    DESC 'Payment method, either invoice, postcard or creditcard.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:3
+    NAME 'sstResellerBill'
+    DESC 'One bill for the reseller (TRUE) or individual bills for each customer (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:4
+    NAME 'sstGender'
+    DESC 'Gender, either m (male) or f (female).'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{1}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:5
+    NAME 'sstWebsiteURL'
+    DESC 'Website URL according to RFC 3986.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:6
+    NAME 'sstTimeZoneOffset'
+    DESC 'Time zone as offsets from UTC.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{8}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:7
+    NAME 'sstBelongsToUID'
+    DESC 'Stores the parent UID.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+
+attributetype ( sstAttributeType:8
+    NAME 'sstBillingCycle'
+    DESC 'Billing cycle in months, either 1, 3 or 12.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{2}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:9
+    NAME 'sstBillingCycleFix'
+    DESC 'Can the billing cycle be automatically modified? Either no (TRUE) or yes (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:10
+    NAME 'sstBillingStartDate'
+    DESC 'The date the billing cycle should start in the form of [YYYY][MM][DD] (ISO 8601).'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:11
+    NAME 'sstBilledFrom'
+    DESC 'The date billing was started in the form of [YYYY][MM][DD] (ISO 8601).'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:12
+    NAME 'sstBilledUntil'
+    DESC 'The end date of the current billing cycle in the form of [YYYY][MM][DD] (ISO 8601).'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:13
+    NAME 'sstCancellationNotice'
+    DESC 'The number of days for the latest cancellation notice, default is 30 days.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{3}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:14
+    NAME 'sstResellerDiscountFormula'
+    DESC 'Formula to calculate the final reseller discount.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:15
+    NAME 'sstResellerMinimalDiscount'
+    DESC 'Minimal reseller discount in per cent.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{2}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:16
+    NAME 'sstProvisioningMode'
+    DESC 'The provisioning mode, either add, modify or delete.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{8}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:17
+    NAME 'sstProvisioningState'
+    DESC 'The provisioning state, either 0 or in the form of  [YYYY][MM][DD]T[hh][mm][ss] (ISO 8601).'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:18
+    NAME 'sstProvisioningExecutionDate'
+    DESC 'The date the provisioning shall occur in the form of [YYYY][MM][DD] (ISO 8601).'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:19
+    NAME 'sstBillable'
+    DESC 'Can the item be billed? Either yes (TRUE) or no (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:20
+    NAME 'sstQuota'
+    DESC 'The filesystem quota in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:21
+    NAME 'sstMemory'
+    DESC 'The memory quota in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:22
+    NAME 'sstDiskspace'
+    DESC 'The diskspace quota in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:23
+    NAME 'sstBillingPriceSchemaCustomer'
+    DESC 'The UID of the billing price schema for the customer.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} 
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:24
+    NAME 'sstBillingPriceSchemaReseller'
+    DESC 'The UID of the billing price schema for the reseller.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} 
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:25
+    NAME 'sstProductDescription'
+    DESC 'Short product description.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:26
+    NAME 'sstProductName'
+    DESC 'Product name.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:27
+    NAME 'sstBasePrice'
+    DESC 'Base price of a product in the default currency.'
+    EQUALITY caseIgnoreIA5Match
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:28
+    NAME 'sstFreeUnit'
+    DESC 'Number of free units.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:29
+    NAME 'sstPriceFormula'
+    DESC 'Formula to calculate the price.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:30
+    NAME 'sstPricePerUnit'
+    DESC 'Price per unit.'
+    EQUALITY caseIgnoreIA5Match
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:31
+    NAME 'sstBillingUnit'
+    DESC 'The billing unit.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:32 
+    NAME 'sstMailDomain'
+    DESC 'A virtual mail domain.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( sstAttributeType:33
+    NAME 'sstMailForward'
+    DESC 'RFC822 Address to forward email to.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} )
+
+attributetype ( sstAttributeType:34
+    NAME 'sstMail'
+    DESC 'RFC822 Address.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:35
+    NAME 'sstMailMessageHomeDirectory'
+    DESC 'Path to the message home directory.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:36
+    NAME 'sstMailMessageStore'
+    DESC 'Path to the message store. Either ~/sdbx or ~/Maildir.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:37
+    NAME 'sstMailReadIMAP'
+    DESC 'Does the user have access to the IMAP Server? Either yes (TRUE) or no (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:38
+    NAME 'sstMailReadPOP'
+    DESC 'Does the user have access to the POP Server? Either yes (TRUE) or no (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:39
+    NAME 'sstMailReceive'
+    DESC 'Can the user send mail? Either yes (TRUE) or no (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:40
+    NAME 'sstMailSend'
+    DESC 'Can the user receive mail? Either yes (TRUE) or no (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:41
+    NAME 'sstMailWebmail'
+    DESC 'Does the user have access to default webmail? Either yes (TRUE) or no (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:42
+    NAME 'sstGroupwareOXContextID'
+    DESC 'The Open-Xchange groupware context id.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+
+attributetype ( sstAttributeType:43
+    NAME 'sstGroupwareOXModule'
+    DESC 'The Open-Xchange groupware module.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:44
+    NAME 'sstIsActive'
+    DESC 'Is the entry active? Either yes (TRUE) or no (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:45
+    NAME 'sstCertificateFingerprint'
+    DESC 'X509 certificate fingerprint.'
+    EQUALITY caseIgnoreIA5Match
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:46
+    NAME 'sstGroupware'
+    DESC 'The currently used Groupware, for example OX.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16} )
+
+attributetype ( sstAttributeType:47
+    NAME 'sstGroupwareOXAccountType'
+    DESC 'The Open-Xchange Groupware account type, either User or Resource.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{8}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:48
+    NAME 'sstMailAccountFolderSent'
+    DESC 'The name of the IMAP sent folder.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:49
+    NAME 'sstMailAccountFolderDrafts'
+    DESC 'The name of the IMAP drafts folder.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:50
+    NAME 'sstMailAccountFolderTrash'
+    DESC 'The name of the IMAP trash folder.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:51
+    NAME 'sstMailAccountFolderSpam'
+    DESC 'The name of the IMAP spam folder.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:52
+    NAME 'sstMailAccountFolderConfirmedHam'
+    DESC 'The name of the IMAP confirmed ham folder.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:53
+    NAME 'sstMailAccountFolderConfirmedSpam'
+    DESC 'The name of the IMAP confirmed spam folder.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:54
+    NAME 'sstGroupwareOXResourceName'
+    DESC 'The name of the Open-Xchange resource. No special characters allowed.'
+    EQUALITY caseIgnoreIA5Match
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:55
+    NAME 'sstGroupwareOXResourceDisplayName'
+    DESC 'The display name of the Open-Xchange resource.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{64}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:56
+    NAME 'sstGroupwareOXResourceDescription'
+    DESC 'The description of the Open-Xchange resource.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:57
+    NAME 'sstBelongsToBillingUID'
+    DESC 'Stores the billing UID the leaf belongs to.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} 
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:58
+    NAME 'sstBelongsToPersonUID'
+    DESC 'Stores the person UID the leaf belongs to.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} 
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:59
+    NAME 'sstBelongsToCustomerUID'
+    DESC 'Stores the customer UID the leaf belongs to.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} ) 
+
+attributetype ( sstAttributeType:60
+    NAME 'sstBelongsToResellerUID'
+    DESC 'Stores the reseller UID the leaf belongs to.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+
+attributetype ( sstAttributeType:61
+    NAME 'sstGroupwareOXDomain'
+    DESC 'Store the OX grouware domain name'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:62
+    NAME 'sstVirtualMachine'
+    DESC 'The name of a virtual machine in the form of a UUID (Universally Unique Identifier).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64} )
+
+attributetype ( sstAttributeType:63
+    NAME 'sstDisplayName'
+    DESC 'The display name of a virtual machine in a human readable format.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128} 
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:64
+    NAME 'sstVCPU'
+    DESC 'The maximum number of virtual CPUs allocated for the guest OS.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:65
+    NAME 'sstStatus'
+    DESC 'The current stataus of a virtual machine (running, blocked, paused, shutdown, dying or crashed).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:66
+    NAME 'sstSpicePort'
+    DESC 'The Spice port number for a given virtual machine.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:67
+    NAME 'sstSpicePassword'
+    DESC 'The Spice password for a given virtual machine.'
+    EQUALITY octetStringMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.40{128} 
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:68
+    NAME 'sstNode'
+    DESC 'The name of a node.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:69
+    NAME 'sstType'
+    DESC 'Depending on the object class, the type can consist of values like kvm, xen, file, bridge, ... .'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:70
+    NAME 'sstOSArchitecture'
+    DESC 'The CPU architecture of the virtual machine (for example x86_64).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:71
+    NAME 'sstOSMachine'
+    DESC 'The machine type of the virtual machine (for example pc-0.13).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:72
+    NAME 'sstOSType'
+    DESC 'The type of operating system to be booted in the virtual machine (for example hvm).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:73
+    NAME 'sstOSBootDevice'
+    DESC 'The next boot device to consider (for example fd, hd, cdrom oder network).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16} )
+
+attributetype ( sstAttributeType:74
+    NAME 'sstFeature'
+    DESC 'Hypervisors may allow certain CPU / machine features to be toggled on/off (for example pae, acpi oder apic).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16} )
+
+attributetype ( sstAttributeType:75
+    NAME 'sstClockOffset'
+    DESC 'Takes four possible values, allowing fine grained control over how the guest clock is synchronized to the host (utc, localtime, timezone or variable).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:76
+    NAME 'sstOnPowerOff'
+    DESC 'The content of this element specifies the action to take when the guest requests a poweroff (destroy, restart, preserve or rename-restart).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:77
+    NAME 'sstOnReboot'
+    DESC 'The content of this element specifies the action to take when the guest requests a reboot (destroy, restart, preserve or rename-restart).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:78
+    NAME 'sstOnCrash'
+    DESC 'The content of this element specifies the action to take when the guest crashes (destroy, restart, preserve, rename-restart, coredump-destroy or coredump-restart).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:79
+    NAME 'sstEmulator'
+    DESC 'The fully qualified path to the device model emulator binary (for example  /usr/local/bin/qemu-kvm.spice).'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} 
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:80
+    NAME 'sstMemBalloon'
+    DESC 'A virtual memory balloon device is added to all Xen and KVM/QEMU guests (none or virtio).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:81
+    NAME 'sstDevice'
+    DESC 'The disk device (floppy, disk or cdrom).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:82
+    NAME 'sstSourceFile'
+    DESC 'If sstType is "file", then this attribute specifies the fully-qualified path to the file 
+          holding the disk. If sstType is "block", then this attribute specifies the path to the 
+	  host device to serve as the disk.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} 
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:83
+    NAME 'sstTargetBus'
+    DESC 'The possible values are driver specific, with typical values being ide, scsi, virtio, xen or usb.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:84
+    NAME 'sstReadonly'
+    DESC 'Is device readonly? Possible values are TRUE or FALSE.'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:85
+    NAME 'sstDriverName'
+    DESC 'The driver name (for example qemu).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:86
+    NAME 'sstDriverType'
+    DESC 'The driver type (for example qcow2).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:87
+    NAME 'sstDisk'
+    DESC 'The disk target name (for example vda, vdb, hda or hdb ...).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{8}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:88
+    NAME 'sstInterface'
+    DESC 'The interface name (for example net0).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:89
+    NAME 'sstSourceBridge'
+    DESC 'The name of the bridge (for example vmbr0).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:90
+    NAME 'sstMacAddress'
+    DESC 'The Media Access Control address (MAC address) of a Node or Virtual Machine.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{128}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:91
+    NAME 'sstModelType'
+    DESC 'The interface model type (for example virtio oder e1000).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:92
+    NAME 'sstMailTemplate'
+    DESC 'Template texts for use in emails.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32768}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:93
+    NAME 'sstOSArchitectureDefault'
+    DESC 'The default architecture of a virtual machine (i386, i486, i586, i686 or x86_64).'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{8}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:94
+    NAME 'sstOSArchitectureValues'
+    DESC 'The possible architectures of a virtual machine (i386, i486, i586, i686 or x86_64).'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{8} )
+
+attributetype ( sstAttributeType:95
+    NAME 'sstLanguageDefault'
+    DESC 'The default language of a virtual machine according to RFC 1766, example: de-CH.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{8}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:96
+    NAME 'sstLanguageValues'
+    DESC 'The possible languages of a virtual machine according to RFC 1766, example: de-CH.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{8} )
+
+attributetype ( sstAttributeType:97
+    NAME 'sstMemoryDefault'
+    DESC 'The default memory size of a virtual machine in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:98
+    NAME 'sstMemoryMin'
+    DESC 'The minimal memory size of a virtual machine in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:99
+    NAME 'sstMemoryMax'
+    DESC 'The maximal memory size of a virtual machine in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:100
+    NAME 'sstMemoryStep'
+    DESC 'The increment memory size in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:101
+    NAME 'sstVCPUDefault'
+    DESC 'The default number of virtual CPUs allocated for the guest OS.'
+    EQUALITY integerMatch
+    ORDERING integerOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{3}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:102
+    NAME 'sstVCPUValues'
+    DESC 'A possible value of virtual CPUs allocated for the guest OS.'
+    EQUALITY integerMatch
+    ORDERING integerOrderingMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{3} )
+
+attributetype ( sstAttributeType:103
+    NAME 'sstClockOffsetDefault'
+    DESC 'The default clock offset value. Takes four possible values, allowing fine grained control over how the guest clock is synchronized to the host (utc, localtime, timezone or variable).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:104
+    NAME 'sstClockOffsetValues'
+    DESC 'A possible clock offset value (utc, localtime, timezone or variable).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16} )
+
+attributetype ( sstAttributeType:105
+    NAME 'sstVolumeName'
+    DESC 'The name of a storage volume in the form of a UUID (Universally Unique Identifier).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:106
+    NAME 'sstVolumeAllocation'
+    DESC 'The storage size in bytes to be allocated in advance.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:107
+    NAME 'sstVolumeCapacity'
+    DESC 'The storage size in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:108
+    NAME 'sstVolumeCapacityDefault'
+    DESC 'The default storage size in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:109
+    NAME 'sstVolumeCapacityMin'
+    DESC 'The minimal storage size in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:110
+    NAME 'sstVolumeCapacityMax'
+    DESC 'The maximal storage size in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:111
+    NAME 'sstVolumeCapacityStep'
+    DESC 'The storage increment size in bytes.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:112
+    NAME 'sstMailTo'
+    DESC 'RFC822 Address.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} )
+
+attributetype ( sstAttributeType:113
+    NAME 'sstMailFrom'
+    DESC 'RFC822 Address.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:114
+    NAME 'sstOnPowerOffDefault'
+    DESC 'The default action on poweroff (destroy, restart, preserve or rename-restart).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:115
+    NAME 'sstOnPowerOffValues'
+    DESC 'The possible actions on poweroff (destroy, restart, preserve or rename-restart).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16} )
+
+attributetype ( sstAttributeType:116
+    NAME 'sstOnRebootDefault'
+    DESC 'The default action on reboot (destroy, restart, preserve or rename-restart).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:117
+    NAME 'sstOnRebootValues'
+    DESC 'The possible actions on reboot (destroy, restart, preserve or rename-restart).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16} )
+
+attributetype ( sstAttributeType:118
+    NAME 'sstOnCrashDefault'
+    DESC 'The default action on crashes (destroy, restart, preserve, rename-restart, coredump-destroy or coredump-restart).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:119
+    NAME 'sstOnCrashValues'
+    DESC 'The possible actions on crashes (destroy, restart, preserve, rename-restart, coredump-destroy or coredump-restart).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16} )
+
+attributetype ( sstAttributeType:120
+    NAME 'sstLDAPStartTLS'
+    DESC 'Do we want a TLS connection?'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:121
+    NAME 'sstLDAPBindDn'
+    DESC 'The dn to bind with.'
+    EQUALITY distinguishedNameMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.12
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:122
+    NAME 'sstLDAPBindPassword'
+    DESC 'The bind password in clear text.'
+    EQUALITY octetStringMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.40{128}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:123
+    NAME 'sstLDAPAuthUserBind'
+    DESC 'Should we try to bind to the directory as the user?'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:124
+    NAME 'sstLDAPAuthUserBindDn'
+    DESC 'The dn of the user or the user to bind with.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:125
+    NAME 'sstLDAPAuthUserNameAttribute'
+    DESC 'The bind attribute of the user.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:126
+    NAME 'sstLDAPUserFilter'
+    DESC 'The ldap filter for the user search.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:127
+    NAME 'sstLDAPAuthUserPasswordAttribute'
+    DESC 'The name of the password attribute.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:128
+    NAME 'sstVirtualMachinePool'
+    DESC 'The name of a virtual machine pool in the form of a UUID (Universally Unique Identifier).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64} )
+
+attributetype ( sstAttributeType:129
+    NAME 'sstNetworkType'
+    DESC 'The type of network range. Possible values are static, dynamic, template or external.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:130
+    NAME 'sstBackupWarningOn'
+    DESC 'Does the user want to informed about failed backups (TRUE) or not (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:131
+    NAME 'sstBackupWarningMissedNumbers'
+    DESC 'After how many missed backups should the user be warned. Possible values are between 0 and 99.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{2}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:132
+    NAME 'sstBackupWarningMissedDays'
+    DESC 'After how many missed backup days should the user be warned. Possible values are between 0 and 99.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{2}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:133
+    NAME 'sstBackupWarningMail'
+    DESC 'RFC822 Address where the warning mail should be sent to.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} )
+
+attributetype ( sstAttributeType:134
+    NAME 'sstNotificationWarningMedium'
+    DESC 'The notification warning medium, either mail or sms.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:135
+    NAME 'sstBackupLastSuccessfulBackup'
+    DESC 'The date and time of the last successful backup in UTC, either 0 or in the form of [YYYY][MM][DD]T[hh][mm][ss]Z (ISO 8601).'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:136
+    NAME 'sstBackupIntervalHourly'
+    DESC 'The hourly backup intervall. Possible values are between 0 and 99.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{2}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:137
+    NAME 'sstBackupIntervalDaily'
+    DESC 'The daily backup intervall. Possible values are between 0 and 99.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{2}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:138
+    NAME 'sstBackupIntervalWeekly'
+    DESC 'The weekly backup intervall. Possible values are between 0 and 99.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{2}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:139
+    NAME 'sstBackupIntervalMonthly'
+    DESC 'The monthly backup intervall. Possible values are between 0 and 99.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{2}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:140
+    NAME 'sstBackupIntervalYearly'
+    DESC 'The yearly backup intervall. Possible values are between 0 and 99.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{2}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:141
+    NAME 'sstRole'
+    DESC 'The role of a user.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128} )
+
+attributetype ( sstAttributeType:142
+    NAME 'sstProduct'
+    DESC 'Stores the product UID.'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+
+attributetype ( sstAttributeType:143
+    NAME 'sstLDAPStaticAttribute'
+    DESC 'The local static attribute, that never changes (for example: uid or sstGroupUID).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:144
+    NAME 'sstDriverCache'
+    DESC 'The driver cache (for example writeback).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:145
+    NAME 'sstNetworkVLANId'
+    DESC 'The network VLAN ID (for example: 4096.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{4}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:146
+    NAME 'sstNetworkPrefix'
+    DESC 'The network prefix (for example: 192.168.1.0/24).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:147
+    NAME 'sstNetworkDomainName'
+    DESC 'The network domain name (for example: mynetwork.example.org)'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:148
+    NAME 'sstNetworkBroadcastAddress'
+    DESC 'The network broadcast address (for example: 192.168.1.255).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:149
+    NAME 'sstNetworkDefaultGateway'
+    DESC 'The network default gateway (for example: 192.168.1.1).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:150
+    NAME 'sstService'
+    DESC 'The service, that should run in a network (for example: sshd).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32} )
+
+attributetype ( sstAttributeType:151
+    NAME 'sstNetworkVirtualIPAdress'
+    DESC 'The network virtual IP address, also called VIP (for example: 192.168.1.13).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:152
+    NAME 'sstNetworkVirtualHostname'
+    DESC 'The virtual hostname (for example: ldapm).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:153
+    NAME 'sstNetworkNTPHost'
+    DESC 'The network time protocol hosts (for example: 0.ch.pool.ntp.org or 130.60.75.52)'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} )
+
+attributetype ( sstAttributeType:154
+    NAME 'sstNetworkDNSHost'
+    DESC 'The domain name server IP addresses (for example: 192.168.1.101).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32} )
+
+attributetype ( sstAttributeType:155
+    NAME 'sstNetworkIPAddress'
+    DESC 'The network virtual IP address(es), also called IP (for example: 192.168.1.13).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32} )
+
+attributetype ( sstAttributeType:156
+    NAME 'sstNetworkHostname'
+    DESC 'The hostname (for example: ldapm-01).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:157
+    NAME 'sstNodeType'
+    DESC 'The node type (for example: Demo-System).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:158
+    NAME 'sstNodeSubType'
+    DESC 'The node subtype (for example: KVM).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:159
+    NAME 'sstNodeState'
+    DESC 'The node state (for example: active / maintenance / offline).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:160
+    NAME 'sstStoragePoolURI'
+    DESC 'Storage pool URI according to RFC 3986.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:161
+    NAME 'sstStoragePoolType'
+    DESC 'The storage pool type (for example: catalogue / dynamic / iso / static / template).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:162
+    NAME 'sstStoragePool'
+    DESC 'The name of a storage pool in the form of a UUID (Universally Unique Identifier).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64} )
+
+attributetype ( sstAttributeType:163
+    NAME 'sstVirtualMachinePoolType'
+    DESC 'The virtual machine pool type (for example: catalogue / dynamic / iso / static / template).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:164
+    NAME 'sstVirtualMachineType'
+    DESC 'The virtual machine type (for example: dynamic / profile / static / template).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:165
+    NAME 'sstVirtualMachineSubType'
+    DESC 'The virtual machine subtype (for example: Golden-Image / Desktop / Server / System-Preparation / VM-Profile / VM-Template).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:166
+    NAME 'sstSelfService'
+    DESC 'Can the item be self-serviced? Either yes (TRUE) or no (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:167
+    NAME 'sstBrokerMinimalNumberOfVirtualMachines'
+    DESC 'The minimal number of virtual machines as an integer value, that need to pre started in a dynamic virtual machine pool through the broker (for example: 5).'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:168
+    NAME 'sstBrokerMaximalNumberOfVirtualMachines'
+    DESC 'The maximal number of virtual machines as an integer value, that are allowed to be started through the broker in a dynamic virtual machine pool (for example: 50).'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:169
+    NAME 'sstBrokerPreStartNumberOfVirtualMachines'
+    DESC 'The number  of virtual machines as an integer value, that need to pre started in a dynamic virtual machine pool through the broker (for example: 3).'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:170
+    NAME 'sstBrokerAlgorithm'
+    DESC 'The algorithm used by the broker to distribute the virtual machines in the FOSS-Cloud installation (for example: quantity / load).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:171
+    NAME 'sstActiveGoldenImage'
+    DESC 'The name of the active Golden-Image in a dynamic virtual machine pool in the form of a UUID (Universally Unique Identifier).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:172
+    NAME 'sstGroupName'
+    DESC 'The name of a group, used for human readable group name to UID mapping (for example: Technology).'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{64} )
+
+attributetype ( sstAttributeType:173
+    NAME 'sstGroupUID'
+    DESC 'The group UID (Unique Identifier), used for UID to human readable group name mapping (for example: 4000014).'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+
+attributetype ( sstAttributeType:174
+    NAME 'sstLDAPBaseDn'
+    DESC 'The dn of the search.'
+    EQUALITY distinguishedNameMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.12
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:175
+    NAME 'sstLDAPFilter'
+    DESC 'The ldap filter for a search (for example: "(&(objectClass=sstPerson)(cn=%s))").'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:176
+    NAME 'sstLDAPForeignStaticAttribute'
+    DESC 'The foreign static attribute, that never changes (for example: uid, mail, cn, ... ).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:177
+    NAME 'sstLDAPExternalDirectory'
+    DESC 'Does the configuration concern an external or an internal directory? Either yes (TRUE) or no (FALSE).'
+    EQUALITY booleanMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:178
+    NAME 'sstLDAPReturnAttribute'
+    DESC 'The attribute(s) that should be returned from a search (for example: sstGroupUID, uid, mail, cn, ... ).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64} )
+
+attributetype ( sstAttributeType:179
+    NAME 'sstLDAPForeignGroupDisplayName'
+    DESC 'The foreign group name attribute, that never changes (for example: sstGroupName, ... ).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:180
+    NAME 'sstFOSSCloudID'
+    DESC 'The FOSS-Cloud identifier in the form of a UUID (Universally Unique Identifier).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:181
+    NAME 'sstLDAPInternalForeignMapping'
+    DESC 'Used for mapping the interal attribute to the foreign directory attribute (for example: mail:email).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{128} )
+
+attributetype ( sstAttributeType:182
+    NAME 'sstProvisioningReturnValue'
+    DESC 'The provisioning return value as in integer number, where 0 represents a successful provisioning event.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{3}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:183
+    NAME 'sstCronMinute'
+    DESC 'Minute (0 - 59).'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( sstAttributeType:184
+    NAME 'sstCronHour'
+    DESC 'Hour (0 - 23).'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( sstAttributeType:185
+    NAME 'sstCronDay'
+    DESC 'Day of month (1 - 31).'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( sstAttributeType:186
+    NAME 'sstCronMonth'
+    DESC 'Month (1 -12).'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( sstAttributeType:187
+    NAME 'sstCronDayOfWeek'
+    DESC 'Day of week (0 - 6), where Sunday is 0.'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( sstAttributeType:188
+    NAME 'sstCronCommand'
+    DESC 'Command shell string to be executed.'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:189
+    NAME 'sstCronActive'
+    DESC 'Denotes the active/inactive state of the cron entry (Either active (TRUE) or inactive (FALSE).'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:190
+    NAME 'sstBackupRootDirectory'
+    DESC 'The path to the backup root directory where all iterations of disk-images and state files are stored. Default is file:///var/backup/virtualization.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:191
+    NAME 'sstBackupRetainDirectory'
+    DESC 'The path to the local retain directory where the temporary snapshots (disk-image and state file) are stored. Default is file:///var/virtualization/retain.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:192
+    NAME 'sstBackupRamDiskLocation'
+    DESC 'Path to the RAM-Disk. Default is /mnt/ramdisk.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:193
+    NAME 'sstRestoreVMWithoutState'
+    DESC 'Boolean value which indicates whether or not to restore a virtual machine without the state. Default is FALSE (most often we want to restore the state together with the virtual machine).'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:194
+    NAME 'sstBackupExcludeFromBackup'
+    DESC 'Do we want to exclude a virtual machine from the default backup plan? Default is FALSE.'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:195
+    NAME 'sstBackupNumberOfIterations'
+    DESC 'An integer value how many backup iterations should be kept. Default is 1 (for disaster recovery).'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{2}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:196
+    NAME 'sstProvisioningExecutionTime'
+    DESC 'This value is used to store the execution time in seconds of each provisioning step. Each entry starts with the provisioning step, the a colon and finally the time in seconds with three decimals after the dot. Examples: snapshot: 5.108, merge: 331.901, retain: 893.729.'
+    EQUALITY caseIgnoreIA5Match
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64} )
+
+attributetype ( sstAttributeType:197
+    NAME 'sstVirtualizationVirtualMachineSequenceStop'
+    DESC 'Multiple dependencies for the stopping order can be defined. Example: a web VM depends on the corresponding database VM. IA5String, multi valued. This attribute must exist in all of the virtual machine entries, that are to be stopped in a certain order. Example (0,1,2, ... is the order, UUID1, UUID2, ... is the uuid of a virtual machine). Example: 0: UUID1, 1: UUID2, 2: UUID3.'
+    EQUALITY caseIgnoreIA5Match
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64} )
+
+attributetype ( sstAttributeType:198
+    NAME 'sstVirtualizationVirtualMachineSequenceStart'
+    DESC 'Multiple dependencies for the starting order can be defined. Example: a database VM must be started before the corresponding web VM. IA5String, multi valued. This attribute must exist in all of the virtual machine entries, that are to be started in a certain order. Example (0,1,2, ... is the order, UUID1, UUID2, ... is the uuid of a virtual machine) Example: 0: UUID3, 1: UUID2, 2: UUID1.'
+    EQUALITY caseIgnoreIA5Match
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64} )
+
+attributetype ( sstAttributeType:199
+    NAME 'sstVirtualizationBandwidthMerge'
+    DESC 'Bandwidth of the disk merging process (specifies the maximum I/O rate to allow in Megabyte/s). Default is 0 (unlimited).'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:200
+    NAME 'sstVirtualizationVirtualMachineForceStart'
+    DESC 'Force start VM in the case of not being able to restore the VM State during the backup process. TRUE or FALSE, default is FALSE. '
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:201
+    NAME 'sstAllowRDP'
+    DESC 'Do we want to allow Remote Desktop Protocol (RDP) access to the virtual machines? Default is FALSE.'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:202
+    NAME 'sstAllowSound'
+    DESC 'Do we want to allow Sound for the virtual machines? Default is TRUE.'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:203
+    NAME 'sstAllowSpice'
+    DESC 'Do we want to allow Simple Protocol for Independent Computing Environments (SPICE) access to the virtual machines? Default is TRUE.'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:204
+    NAME 'sstAllowUSB'
+    DESC 'Do we want to allow Universal Serial Bus (USB) access to the virtual machines? Default is FALSE.'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:205
+    NAME 'sstAllowVNC'
+    DESC 'Do we want to allow Virtual Network Computing (VNC) access to the virtual machines? Default is FALSE.'
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:206
+    NAME 'sstSpicePortMin'
+    DESC 'The minimal Spice Port as an integer value. Default value is 5900.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{8}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:207
+    NAME 'sstSpicePortMax'
+    DESC 'The maximal Spice Port as an integer value. Default value is 5999.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{8}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:208
+    NAME 'sstMigrationNode'
+    DESC 'The name of the node, to which a virtual machine should be migrated to.'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:209
+    NAME 'sstMigrationSpicePort'
+    DESC 'The Spice port number for the virtual machine on the remote node, to which the virtual machine should be migrated to.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:210
+    NAME 'sstVirtualizationDiskImagePermission'
+    DESC 'The permission (in octal representation) for the new disk image that is created during the backup process. Default is 660 (equivalent to 0660)'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{4}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:211
+    NAME 'sstVirtualizationDiskImageFormat'
+    DESC 'The format for the new disk image that is created during the backup process. Default is qcow2.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{8}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:212
+    NAME 'sstVirtualizationDiskImageOwner'
+    DESC 'The owner for the new disk image that is created during the backup process. Default is root.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:213
+    NAME 'sstVirtualizationDiskImageGroup'
+    DESC 'The group for the new disk image that is created during the backup process. Default is vm-storage.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:214
+    NAME 'sstVirtualizationDiskImageDirectoryOwner'
+    DESC 'The owner for the new directory where the disk image is located. Default is root.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:215
+    NAME 'sstVirtualizationDiskImageDirectoryGroup'
+    DESC 'The group for the new directory where the disk image is located. Default is vm-storage.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{16}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:216
+    NAME 'sstVirtualizationDiskImageDirectoryPermission'
+    DESC 'The permission (in octal representation) for the new directory where the disk image is located. Default is 770 (equivalent to 0770)'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{4}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:217
+    NAME 'sstNetworkHostnameFormat'
+    DESC 'The format of the hostname in the printf format (for example kvm-%04d gives you kvm-0000 up to kvm-9999).'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{32}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:218
+    NAME 'sstNetworkHostnameNextFreeNumber'
+    DESC 'The next free number, which is used by sstNetworkHostnameFormat (for example kvm-%04d) to give us unique hostnames (default is 1).'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:219
+    NAME 'sstThinProvisioningVirtualMachine'
+    DESC 'The name of a virtual machine in the form of a UUID (Universally Unique Identifier) that is beeing thin provisioned from this virtual machine (see virDomainBlockCommit and virDomainGetBlockJobInfo for more information).'
+    EQUALITY caseIgnoreIA5Match
+    SUBSTR caseIgnoreIA5SubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{64} )
+
+attributetype ( sstAttributeType:220
+    NAME 'sstServiceName'
+    DESC 'The name of the service.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:221
+    NAME 'sstServiceDescription'
+    DESC 'A short description of the service.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:222
+    NAME 'sstServiceProvisioningDaemon'
+    DESC 'The name of the service provisioning daemon in the form of prov-<SERVICE>-<TYPE> For example: prov-monitoring-zabbix.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:223
+    NAME 'sstServicePriority'
+    DESC 'The priority of a service. Possible values are 1, 2, 3 or 4.'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27{2}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:224
+    NAME 'sstOperatingSystem'
+    DESC 'The operating system. For example Linux or Windows.'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:225
+    NAME 'sstOperatingSystemType'
+    DESC 'The operating system type (only used for Linux). For example Fedora/Debian/Gentoo/... .'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:226
+    NAME 'sstOperatingSystemVersion'
+    DESC 'The operating system version. For example 18 (for Linux Fedora 18) or 2008 R2 (for Windows 2008 R2).'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+    SINGLE-VALUE )
+
+attributetype ( sstAttributeType:227
+    NAME 'sstServiceSubscription'
+    DESC 'Tell the system, if the information is to be used by which service. For example: monitoring or configuration management (the corresponding service needs to subscribed to, otherwise this information will be ignored).'
+    EQUALITY caseIgnoreMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256} )
+
+objectclass ( sstObjectClass:1
+    NAME 'sstReseller'
+    SUP top STRUCTURAL
+    MUST ( uid $ organizationName ) 
+    MAY ( sstIsActive ) )
+
+objectclass ( sstObjectClass:2
+    NAME 'sstAddressCompany'
+    SUP top AUXILIARY
+    MUST ( countryName $ givenName $ localityName $ mail $ organizationName $ 
+           postalCode $ preferredLanguage $ sstGender $ surname )
+    MAY ( mobileTelephoneNumber $ postalAddress $ postOfficeBox $
+          sstWebsiteURL $ stateOrProvinceName $ telephoneNumber ) )
+
+objectclass ( sstObjectClass:3
+    NAME 'sstAddressPerson'
+    SUP top AUXILIARY
+    MUST ( countryName $ givenName $ localityName $ mail $ postalCode $
+           preferredLanguage $ sstGender $ surname )
+    MAY ( mobileTelephoneNumber $ postalAddress $ postOfficeBox $
+          sstWebsiteURL $ stateOrProvinceName $ telephoneNumber ) )
+
+objectclass ( sstObjectClass:4
+    NAME 'sstBillingReseller'
+    SUP top AUXILIARY
+    MUST ( sstResellerBill )
+    MAY ( sstBillingCycle $ sstCurrency $ sstPaymentMethod $ 
+          sstResellerDiscountFormula $ sstResellerMinimalDiscount ) )
+
+objectclass ( sstObjectClass:5
+    NAME 'sstBillingCustomer'
+    SUP top AUXILIARY
+    MUST ( sstBillingCycle $ sstBillingCycleFix $ sstCurrency $ 
+           sstPaymentMethod ) )
+
+objectclass ( sstObjectClass:6
+    NAME 'sstPerson'
+    SUP top STRUCTURAL
+    MUST ( givenName $ mail $ preferredLanguage $ sstBelongsToCustomerUID $
+           sstTimeZoneOffset $ surname $ uid $ userPassword )
+    MAY ( cn $ description $ mobileTelephoneNumber $ sstBelongsToResellerUID $ sstBelongsToUID $ 
+          telephoneNumber $ sstGroupUID $ sstLDAPForeignStaticAttribute $ sstGroupName $ 
+	  sstIsActive $ sstGender ) )
+
+objectclass ( sstObjectClass:7
+    NAME 'sstCustomerCompany'
+    SUP top STRUCTURAL
+    MUST ( organizationName $ sstBelongsToResellerUID $ uid )
+    MAY ( sstIsActive ) )
+
+objectclass ( sstObjectClass:8
+    NAME 'sstCustomerPerson'
+    SUP top STRUCTURAL
+    MUST ( givenName $ surname $ sstBelongsToResellerUID $ uid )
+    MAY ( sstIsActive ) )
+
+objectclass ( sstObjectClass:9
+    NAME 'sstBillingProduct'
+    SUP top STRUCTURAL
+    MUST ( sstBillable $ sstBilledFrom $ sstBilledUntil $ 
+           sstBillingPriceSchemaCustomer $ sstBillingPriceSchemaReseller $
+           sstBillingStartDate $ sstCancellationNotice $ sstProductDescription $
+	   sstProductName )
+    MAY ( ou $ sstQuota $ uid ) )
+
+objectclass ( sstObjectClass:10
+    NAME 'sstBillingProductItem'
+    SUP top STRUCTURAL
+    MUST ( sstBillable $ sstBilledFrom $ sstBilledUntil $
+           sstBillingPriceSchemaCustomer $ sstBillingPriceSchemaReseller $
+           sstBillingStartDate $ sstProductDescription $ sstProductName )
+    MAY ( ou $ sstDiskspace $ sstMemory $ sstQuota $ uid ) )
+
+objectclass ( sstObjectClass:11
+    NAME 'sstProvisioning'
+    SUP top AUXILIARY
+    MUST ( sstProvisioningExecutionDate $ sstProvisioningMode $ 
+           sstProvisioningState)
+    MAY ( sstProvisioningReturnValue $ sstProvisioningExecutionTime ) )
+
+objectclass ( sstObjectClass:12
+    NAME 'sstBillingPriceSchema'
+    SUP top STRUCTURAL
+    MUST ( description $ sstBasePrice $ sstBelongsToUID $ sstBillingUnit $ sstFreeUnit $ 
+           sstPriceFormula $ sstPricePerUnit $ sstProductName $ uid ) )
+
+objectclass ( sstObjectClass:13
+    NAME 'sstMailDomain'
+    SUP top STRUCTURAL
+    MUST ( sstIsActive $ sstMailDomain )
+    MAY ( sstBelongsToUID ) )
+
+objectclass ( sstObjectClass:14
+    NAME 'sstMailAccount'
+    SUP top STRUCTURAL
+    MUST ( givenName $ preferredLanguage $ sstIsActive $ sstGender $ 
+           sstMail $ sstMailMessageHomeDirectory $ sstMailMessageStore $ 
+	   sstMailReadIMAP $ sstMailReadPOP $ sstMailReceive $ sstMailSend $ 
+	   sstMailWebmail $ sstQuota $ surname $ userPassword )
+    MAY ( sstBelongsToUID $ sstGroupware $ sstGroupwareOXAccountType $ sstGroupwareOXContextID $ 
+          sstMailAccountFolderConfirmedHam $ sstMailAccountFolderConfirmedSpam $ 
+	  sstMailAccountFolderDrafts $ sstMailAccountFolderSent $ sstMailAccountFolderSpam 
+	  $ sstMailAccountFolderTrash $ sstMailForward ) )
+
+objectclass ( sstObjectClass:15
+    NAME 'sstMailAlias'
+    SUP top STRUCTURAL
+    MUST ( sstIsActive $ sstMail $ sstMailForward ) )
+
+objectclass ( sstObjectClass:16
+    NAME 'sstMailDomainAlias'
+    SUP top STRUCTURAL
+    MUST ( sstIsActive $ sstMailDomain )
+    MAY ( sstBelongsToUID ) )
+
+objectclass ( sstObjectClass:17
+    NAME 'sstMailWildcardAlias'
+    SUP top STRUCTURAL
+    MUST ( sstIsActive $ sstMail $ sstMailForward ) )
+
+objectclass ( sstObjectClass:18
+    NAME 'sstGroupwareOX'
+    SUP top AUXILIARY
+    MUST ( sstGroupwareOXContextID )
+    MAY ( sstGroupwareOXAccountType $ sstGroupwareOXDomain $ sstGroupwareOXModule $ sstQuota $
+          sstBelongsToUID ) )
+
+objectclass ( sstObjectClass:19
+    NAME 'sstMailRelayHost'
+    SUP top STRUCTURAL
+    MUST ( host $ sstCertificateFingerprint $ sstIsActive $
+           sstMailSend )
+    MAY ( sstBelongsToUID ) )
+
+objectclass ( sstObjectClass:20
+    NAME 'sstMailAccountResource'
+    SUP top STRUCTURAL
+    MUST ( sstIsActive $ sstGroupwareOXAccountType $
+           sstGroupwareOXContextID $ sstMail $ sstMailMessageHomeDirectory $ 
+           sstMailMessageStore $ sstMailReadIMAP $ sstMailReadPOP $ sstMailReceive $ 
+           sstMailSend $ sstMailWebmail $ sstQuota $ userPassword $ 
+           sstMailAccountFolderDrafts $ sstMailAccountFolderSent $ sstMailAccountFolderSpam $ 
+           sstMailAccountFolderTrash $ sstGroupwareOXResourceName $
+	   sstGroupwareOXResourceDisplayName $ sstGroupwareOXResourceDescription )
+    MAY ( sstBelongsToUID $ sstMailAccountFolderConfirmedHam $ sstMailAccountFolderConfirmedSpam ) )
+
+objectclass ( sstObjectClass:21
+    NAME 'sstVirtualizationNode'
+    SUP top STRUCTURAL
+    MUST ( sstNode ) 
+    MAY ( description ) )
+
+objectclass ( sstObjectClass:22
+    NAME 'sstGroupwareOXModule'
+    SUP top STRUCTURAL
+    MUST ( sstGroupwareOXContextID $ sstGroupwareOXModule )
+    MAY ( sstBelongsToUID ) )
+
+objectclass ( sstObjectClass:23
+    NAME 'sstVirtualizationNetwork'
+    SUP top AUXILIARY
+    MUST ( sstBelongsToCustomerUID $ sstBelongsToResellerUID )
+    MAY ( description $ sstBelongsToBillingUID $ sstBelongsToPersonUID $ sstDisplayName ) )
+
+objectclass ( sstObjectClass:24
+    NAME 'sstRelationship'
+    SUP top AUXILIARY
+    MUST ( sstBelongsToCustomerUID $ sstBelongsToResellerUID )
+    MAY ( sstBelongsToBillingUID $ sstBelongsToPersonUID $ sstIsActive ) )
+
+objectclass ( sstObjectClass:25
+    NAME 'sstSpice'
+    SUP top AUXILIARY
+    MUST ( sstSpicePort )
+    MAY ( sstMigrationSpicePort $ sstSpicePassword ) )
+
+objectclass ( sstObjectClass:26
+    NAME 'sstVirtualizationVirtualMachine'
+    SUP top STRUCTURAL
+    MUST ( sstClockOffset $ sstDisplayName $ sstMemory $ sstNode $ sstOnCrash $
+           sstOnPowerOff $ sstOnReboot $ sstOSArchitecture $ sstOSBootDevice $ 
+           sstOSMachine $ sstOSType $ sstStatus $ sstType $ sstVCPU $ 
+	   sstVirtualMachine $ sstVirtualMachinePool )
+    MAY ( description $ sstFeature $ sstMigrationNode $ sstSourceFile $
+          sstVirtualMachineType $ sstVirtualMachineSubType $ sstThinProvisioningVirtualMachine $
+          sstNetworkDomainName $ sstNetworkHostname ) )
+
+objectclass ( sstObjectClass:27
+    NAME 'sstVirtualizationVirtualMachineDevices'
+    SUP top AUXILIARY
+    MUST ( sstEmulator $ sstMemBalloon ) )
+
+objectclass ( sstObjectClass:28
+    NAME 'sstVirtualizationVirtualMachineDisk'
+    SUP top STRUCTURAL
+    MUST ( sstDevice $ sstDisk $ sstSourceFile $ sstTargetBus $ sstType )
+    MAY ( sstDriverCache $ sstDriverName $ sstDriverType $ sstReadonly $ sstVolumeAllocation $
+          sstVolumeCapacity $ sstVolumeName ) )
+
+objectclass ( sstObjectClass:29
+    NAME 'sstVirtualizationVirtualMachineInterface'
+    SUP top STRUCTURAL
+    MUST ( sstInterface $ sstMacAddress $ sstModelType $ sstSourceBridge $ sstType ) )
+
+objectclass ( sstObjectClass:30
+    NAME 'sstTemplateSetup'
+    SUP top AUXILIARY
+    MUST ( sstMailFrom $ sstMailTemplate $ sstMailTo ) )
+
+objectclass ( sstObjectClass:31
+    NAME 'sstVirtualizationProfileArchitectureDefaults'
+    SUP top AUXILIARY
+    MUST ( sstOSArchitectureDefault $ sstOSArchitectureValues ) )
+
+objectclass ( sstObjectClass:32
+    NAME 'sstVirtualizationProfileLanguageDefaults'
+    SUP top AUXILIARY
+    MUST ( sstLanguageDefault $ sstLanguageValues ) )
+
+objectclass ( sstObjectClass:33
+    NAME 'sstVirtualizationVirtualMachineDefaults'
+    SUP top AUXILIARY
+    MUST ( sstClockOffsetDefault $ sstClockOffsetValues $ sstMemoryDefault $ sstMemoryMax $ 
+           sstMemoryMin $ sstMemoryStep $ sstOnCrashDefault $ sstOnCrashValues $ sstOnPowerOffDefault $ 
+	   sstOnPowerOffValues $ sstOnRebootDefault $ sstOnRebootValues $ sstVCPUDefault $ sstVCPUValues ) )
+
+objectclass ( sstObjectClass:34
+    NAME 'sstVirtualizationVirtualMachineDiskDefaults'
+    SUP top AUXILIARY
+    MUST ( sstVolumeCapacityDefault $ sstVolumeCapacityMax $ sstVolumeCapacityMin $ sstVolumeCapacityStep ) )
+
+objectclass ( sstObjectClass:35
+    NAME 'sstTemplateLanguage'
+    SUP top AUXILIARY
+    MUST ( sstmailtemplate ) )
+
+objectclass ( sstObjectClass:36
+    NAME 'sstLDAPAuthenticationProvider'
+    SUP top AUXILIARY
+    MAY ( description $ sstDisplayName $ sstLDAPUserFilter $ sstLDAPAuthUserNameAttribute $
+          sstLDAPBindDn $ sstLDAPBindPassword $ sstLDAPAuthUserBind $ sstLDAPStartTLS $
+          sstLDAPAuthUserBindDn $ sstLDAPAuthUserPasswordAttribute $ sstLDAPStaticAttribute $
+          sstLDAPAuthUserNameAttribute $ sstLDAPExternalDirectory ) )
+
+objectclass ( sstObjectClass:37
+    NAME 'sstVirtualMachines'
+    SUP top STRUCTURAL
+    MUST ( sstVirtualMachinePool)
+    MAY ( description $ sstDisplayName $ sstVirtualMachine $ sstVirtualMachinePoolType ) )
+
+objectclass ( sstObjectClass:38
+    NAME 'sstVirtualizationNetworkRange'
+    SUP top STRUCTURAL
+    MUST ( cn $ sstDisplayName $ sstNetworkType  )
+    MAY ( description ) )
+
+objectclass ( sstObjectClass:39
+    NAME 'sstBackup'
+    SUP top AUXILIARY
+    MUST ( sstBackupIntervalHourly $ sstBackupIntervalDaily $ sstBackupIntervalWeekly $
+           sstBackupIntervalMonthly $ sstBackupIntervalYearly $
+           sstBackupLastSuccessfulBackup $ sstBackupWarningMissedDays $ sstBackupWarningMissedNumbers $
+           sstBackupWarningOn $ sstNotificationWarningMedium $ sstQuota )
+    MAY ( mobile $ sstBackupWarningMail ) )
+
+objectclass ( sstObjectClass:40
+    NAME 'sstRoles'
+    SUP top STRUCTURAL
+    MUST ( sstProduct $ sstRole )
+    MAY ( description $ sstDisplayName ) )
+
+objectclass ( sstObjectClass:41
+    NAME 'sstNetwork'
+    SUP top AUXILIARY
+    MUST ( sstNetworkDomainName $ sstNetworkPrefix )
+    MAY ( sstNetworkBroadcastAddress $ sstNetworkDefaultGateway $ sstNetworkDNSHost $ 
+          sstNetworkNTPHost $ sstNetworkVLANId ) )
+
+objectclass ( sstObjectClass:42
+    NAME 'sstServices'
+    SUP top STRUCTURAL
+    MUST ( sstService )
+    MAY ( description $ sstDisplayName $ sstNetworkVirtualHostname $ sstNetworkVirtualIPAdress ) )
+
+objectclass ( sstObjectClass:43
+    NAME 'sstNetworkNode'
+    SUP top AUXILIARY
+    MUST ( sstNetworkIPAddress ) )
+
+objectclass ( sstObjectClass:44
+    NAME 'sstServicesNode'
+    SUP top STRUCTURAL
+    MUST ( sstService )
+    MAY ( description $ sstDisplayName $ sstNetworkHostname ) )
+
+objectclass ( sstObjectClass:45
+    NAME 'sstTypeNode'
+    SUP top STRUCTURAL
+    MUST ( sstNodeType $ sstNodeSubtype )
+    MAY ( description $ sstDisplayName $ sstNodeState $ sstService ) )
+
+objectclass ( sstObjectClass:46
+    NAME 'sstStoragePoolConfigurationObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstSelfService $ sstStoragePoolURI $ sstStoragePoolType )
+    MAY ( description $ sstDisplayName ) )
+
+objectclass ( sstObjectClass:47
+    NAME 'sstStoragePoolObjectClass'
+    SUP top STRUCTURAL
+    MUST ( sstStoragePoolURI $ sstStoragePoolType )
+    MAY ( description $ sstDisplayName $ sstStoragePool ) )
+
+objectclass ( sstObjectClass:48
+    NAME 'sstVirtualMachinePoolBrokerConfigurationObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstBrokerAlgorithm ) )
+
+objectclass ( sstObjectClass:49
+    NAME 'sstVirtualMachinePoolConfigurationObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstBrokerMaximalNumberOfVirtualMachines $ sstBrokerMinimalNumberOfVirtualMachines $ 
+           sstBrokerPreStartNumberOfVirtualMachines ) )
+
+objectclass ( sstObjectClass:50
+    NAME 'sstVirtualMachinePoolDynamicObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstBrokerMaximalNumberOfVirtualMachines $ sstBrokerMinimalNumberOfVirtualMachines $
+           sstBrokerPreStartNumberOfVirtualMachines )
+    MAY ( sstActiveGoldenImage ) )
+
+objectclass ( sstObjectClass:51
+    NAME 'sstLDAPSearchObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstLDAPBaseDn )
+    MAY ( description $ sstDisplayName $ sstLDAPUserFilter $ sstLDAPAuthUserNameAttribute $
+          sstLDAPFilter $ sstLDAPStartTLS $ sstLDAPAuthUserBind $
+	  sstLDAPBindDn $ sstLDAPBindPassword $ sstLDAPInternalForeignMapping $ 
+          sstLDAPAuthUserBindDn $ sstLDAPAuthUserPasswordAttribute $ sstLDAPForeignStaticAttribute $
+          sstLDAPAuthUserNameAttribute $ sstLDAPReturnAttribute $ sstLDAPForeignGroupDisplayName ) )
+
+objectclass ( sstObjectClass:52
+    NAME 'sstLDAPAuthenticationObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstLDAPAuthUserBind $ sstLDAPAuthUserBindDn $ sstLDAPAuthUserPasswordAttribute )
+    MAY ( description $ sstDisplayName $ sstLDAPUserFilter $ sstLDAPStartTLS $
+          sstLDAPBindDn $ sstLDAPBindPassword $ sstLDAPForeignStaticAttribute $
+	  sstLDAPAuthUserNameAttribute ) )
+
+objectclass ( sstObjectClass:53
+    NAME 'sstGroupObjectClass'
+    SUP top STRUCTURAL
+    MUST ( uid $ sstDisplayName )
+    MAY ( description $ sstGroupName $ sstLDAPForeignStaticAttribute ) )
+
+objectclass ( sstObjectClass:54
+    NAME 'sstLDAPMappingObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstLDAPBaseDn $ sstLDAPFilter $ sstLDAPStaticAttribute $ sstDisplayName )
+    MAY ( description ) )
+
+objectclass ( sstObjectClass:55
+    NAME 'sstFOSSCloudVersionObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstFOSSCloudID )
+    MAY ( description ) )
+
+objectclass ( sstObjectClass:56
+    NAME 'sstLogoutRedirect'
+    SUP top AUXILIARY
+    MUST ( sstWebsiteURL ) )
+
+objectclass ( sstObjectClass:57
+    NAME 'sstCronObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstCronMinute $ sstCronHour $ sstCronDay $ sstCronMonth $ sstCronDayOfWeek $ sstCronActive )
+    MAY ( sstCronCommand ) )
+
+objectclass ( sstObjectClass:58
+    NAME 'sstVirtualizationBackupObjectClass'
+    SUP top AUXILIARY
+    MAY ( sstBackupNumberOfIterations $ sstBackupRootDirectory $ sstBackupRetainDirectory $
+          sstVirtualizationVirtualMachineForceStart $ sstVirtualizationBandwidthMerge $
+          sstRestoreVMWithoutState $ sstBackupExcludeFromBackup $ sstBackupRamDiskLocation $
+          sstVirtualizationVirtualMachineSequenceStop $ sstVirtualizationVirtualMachineSequenceStart $
+	  sstVirtualizationDiskImageFormat $ sstVirtualizationDiskImageOwner $
+	  sstVirtualizationDiskImageGroup $ sstVirtualizationDiskImagePermission $
+          sstVirtualizationDiskImageDirectoryOwner $ sstVirtualizationDiskImageDirectoryGroup $
+          sstVirtualizationDiskImageDirectoryPermission ) )
+
+objectclass ( sstObjectClass:59
+    NAME 'sstVirtualizationSettingsObjectClass'
+    SUP top AUXILIARY
+    MAY ( sstAllowRDP $ sstAllowSound $ sstAllowSpice $ sstAllowUSB $ sstAllowVNC $ 
+          sstSpicePortMin $ sstSpicePortMax ) )
+
+objectclass ( sstObjectClass:60
+    NAME 'sstHostnameDefinitionObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstNetworkDomainName $ sstNetworkHostnameFormat $ sstNetworkHostnameNextFreeNumber )
+    MAY ( description ) )
+
+objectclass ( sstObjectClass:61
+    NAME 'sstServiceObjectClass'
+    SUP top STRUCTURAL
+    MUST ( sstServiceName )
+    MAY ( sstServiceDescription $ sstServiceProvisioningDaemon $ sstServicePriority $ uid ) )
+
+objectclass ( sstObjectClass:62
+    NAME 'sstOperatingSystemObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstOperatingSystem $ sstOperatingSystemVersion )
+    MAY ( sstOperatingSystemType ) )
+
+objectclass ( sstObjectClass:63
+    NAME 'sstServiceSubscriptionObjectClass'
+    SUP top AUXILIARY
+    MAY ( sstServiceSubscription ) )
+
+objectclass ( sstObjectClass:64
+    NAME 'sstServiceConfigurionMonitoringObjectClass'
+    SUP top AUXILIARY
+    MUST ( sstWebsiteURL $ uid $ sstIsActive ) )

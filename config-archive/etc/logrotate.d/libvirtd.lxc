@@ -1,0 +1,6 @@
+/var/log/libvirt/lxc/*.log {
+        missingok
+        compress
+        delaycompress
+        copytruncate
+}
