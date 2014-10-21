@@ -1,4 +1,6 @@
 /var/log/messages /var/log/syslog/* {
+  size 1M
+  rotate 8
   sharedscripts
   postrotate
     /etc/init.d/syslog-ng reload > /dev/null 2>&1 || true

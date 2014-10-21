@@ -1,4 +1,6 @@
 /var/log/libvirt/qemu/*.log {
+        size 10000
+        rotate 8
         missingok
         compress
         delaycompress

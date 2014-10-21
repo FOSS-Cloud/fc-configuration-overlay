@@ -1,4 +1,6 @@
 /var/log/cluster/*log {
+	size 1M
+	rotate 8
 	missingok
 	copytruncate
 }
