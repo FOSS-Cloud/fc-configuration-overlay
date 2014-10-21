@@ -1,3 +1,5 @@
 /var/log/rc.log {
-	missingok
+  size 1M
+  rotate 8
+  missingok
 }

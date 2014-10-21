@@ -1,4 +1,6 @@
 /var/log/libvirt/uml/*.log {
+        size 1M
+        rotate 8
         missingok
         compress
         delaycompress

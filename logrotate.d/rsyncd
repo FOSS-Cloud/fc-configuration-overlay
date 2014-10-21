@@ -1,5 +1,7 @@
 /var/log/rsync.log {
-	compress
+        size 1M
+        rotate 8
+        compress
 	missingok
 	copytruncate
 }
