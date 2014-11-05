@@ -1,3 +1,0 @@
-[submodule "syslog-ng"]
-	path = syslog-ng
-	url = https://github.com/FOSS-Cloud/syslog-ng.git
