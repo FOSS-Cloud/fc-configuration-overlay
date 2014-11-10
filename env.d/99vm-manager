@@ -1,0 +1,1 @@
+CONFIG_PROTECT="/var/www/localhost/htdocs/vm-manager/vm_config.php"
