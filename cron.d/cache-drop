@@ -1,4 +1,0 @@
-# MIN HOUR DAY MONTH DAYOFWEEK
-# * * * * *
-# Cronjob for cache drop
-* */4 * * * /usr/sbin/fc-cache-drop

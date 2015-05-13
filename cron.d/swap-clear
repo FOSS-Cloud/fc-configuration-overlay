@@ -1,4 +1,0 @@
-# MIN HOUR DAY MONTH DAYOFWEEK
-# * * * * *
-# Cronjob for swap clear
-* */4 * * * /usr/sbin/fc-swap-clear
