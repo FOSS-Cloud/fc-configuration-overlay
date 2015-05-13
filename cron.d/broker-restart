@@ -1,6 +1,6 @@
 # MIN HOUR DAY MONTH DAYOFWEEK
 # * * * * *
-# Cronjob for the fc-broker memory leaks
+# Cronjob for the fc-broker
 */1 * * * * /usr/sbin/fc-restart-brokerd
 00 01 * * * /etc/init.d/fc-brokerd restart
 
