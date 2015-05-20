@@ -1,4 +1,4 @@
 # MIN HOUR DAY MONTH DAYOFWEEK
 # * * * * *
 # Cronjob for cache and swap drop
-0 */4 * * * /usr/sbin/fc-cache-swap-clean
+0 */4 * * * /usr/sbin/fc-utilization && /usr/sbin/pwfcck
