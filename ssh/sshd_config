@@ -113,6 +113,7 @@ PrintLastLog no
 
 # no default banner path
 #Banner none
+Banner /etc/ssh/sshd-banner
 
 # override default of no subsystems
 Subsystem	sftp	/usr/lib64/misc/sftp-server
