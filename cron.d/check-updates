@@ -1,0 +1,4 @@
+# MIN HOUR DAY MONTH DAYOFWEEK
+# * * * * *
+# Cronjob for the keeping /var/log clean
+00 02 * * * /usr/sbin/fc-check-updates
