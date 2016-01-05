@@ -9,6 +9,6 @@
       <email>info@foss-cloud.org</email>
       <name>FOSS-Group Germany</name>
     </owner>
-    <source type="git">https://github.com/FOSS-Cloud/portage-overlay.git</source>
+    <source type="git">https://github.com/FOSS-Cloud/fc-portage-overlay.git</source>
   </repo>
 </repositories>
