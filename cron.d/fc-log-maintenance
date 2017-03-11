@@ -2,4 +2,4 @@
 # * * * * *
 # Cronjob for the keeping /var/log clean
 */5 * * * * /usr/sbin/fc-log-backup
-*/5 * * * * /usr/bin/db4.8_archive -a -h /var/lib/openldap-hdb/foss-cloud/ | xargs rm -v
+*/6 * * * * /usr/bin/db4.8_archive -a -h /var/lib/openldap-hdb/foss-cloud/ | xargs rm -v
